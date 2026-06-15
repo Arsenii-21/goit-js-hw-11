@@ -24,7 +24,6 @@ if (form && input) {
 
 		try {
 			const data = await getImagesByQuery(query);
-			hideLoader();
 
 			const images = data.hits || [];
 			const total = data.totalHits || 0;
@@ -44,11 +43,12 @@ if (form && input) {
 				message: `Found ${total} images.`,
 			});
 		} catch (err) {
-			hideLoader();
 			iziToast.error({
 				title: 'Error',
 				message: err.message,
 			});
+		} finally {
+			hideLoader();
 		}
 	});
 }
